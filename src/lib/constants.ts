@@ -1,7 +1,7 @@
 // src/lib/constants.ts
 // Change ONLY the values below – nothing else
 export const SITE_NAME = "AAP KI SEHAT";                   // Display name everywhere
-export const CURRENCY = "Rs";                                 // Pakistani currency symbol
+export const CURRENCY = "Rs: ";                                 // Pakistani currency symbol
 export const WHATSAPP_NUMBER = "923001234567";                // Your WhatsApp with country code
 
 // Google hidden-submit (replace YOUR_FORM_ID and every entry number with your own)
