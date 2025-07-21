@@ -1,8 +1,9 @@
 // src/app/checkout/page.tsx
 "use client";
 import { useCart } from "@/lib/cartStore";
-import { products, CURRENCY, GOOGLE_FORM_URL, ENTRY_IDS, WHATSAPP_NUMBER } from "@/lib/constants";
+import { CURRENCY, GOOGLE_FORM_URL, ENTRY_IDS, WHATSAPP_NUMBER } from "@/lib/constants";
 import { useState } from "react";
+import { products } from "@/lib/products";
 
 export default function CheckoutPage() {
   const items = useCart((s) => s.items);

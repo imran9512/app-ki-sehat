@@ -2,7 +2,8 @@
 "use client";
 import Image from "next/image";
 import { useCart } from "@/lib/cartStore";
-import { products, CURRENCY } from "@/lib/products";
+import { products } from "@/lib/products";
+import { CURRENCY } from "@/lib/constants";
 
 export default function CartPage() {
   const items = useCart((s) => s.items);
