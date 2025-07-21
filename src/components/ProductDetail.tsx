@@ -4,16 +4,16 @@ import { useState } from "react";
 import Image from "next/image";
 import { NextSeo, ProductJsonLd } from "next-seo";
 import { useCart } from "@/lib/cartStore";
-import { CURRENCY, WHATSAPP_NUMBER } from "@/lib/constants";
+import { SITE_NAME, CURRENCY, WHATSAPP_NUMBER } from "@/lib/constants";
 import ProductCard from "@/components/ProductCard";
 import { products } from "@/lib/products";
-import { SITE_NAME } from "@/lib/constants";
 
 export default function ProductDetail({ product }: { product: any }) {
   const [qty, setQty] = useState(1);
+  const [current, setCurrent] = useState(0); // image slider index
   const add = useCart((s) => s.add);
 
-  const tier = product.priceTiers.slice().reverse().find((t) => qty >= t.qty)!;
+  const tier = product.priceTiers.slice().reverse().find((t) => qty >= t.qty) ?? product.priceTiers[0];
   const price = tier.priceEach;
 
   const whatsMsg = encodeURIComponent(
@@ -48,25 +48,40 @@ export default function ProductDetail({ product }: { product: any }) {
       />
 
       <div className="max-w-5xl mx-auto px-4 py-8 grid md:grid-cols-2 gap-8">
-        <Image
-          src={`/images/${product.images[0]}`}
-          alt={product.name}
-          width={600}
-          height={600}
-          className="rounded"
-        />
+        {/* Image slider */}
+        <div className="relative">
+          <Image
+            src={`/images/${product.images[current]}`}
+            alt={product.name}
+            width={600}
+            height={600}
+            className="w-full h-auto rounded"
+          />
+          {product.images.length > 1 && (
+            <>
+              <button
+                onClick={() => setCurrent((prev) => (prev - 1 + product.images.length) % product.images.length)}
+                className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white px-2 py-1 rounded"
+              >
+                ‹
+              </button>
+              <button
+                onClick={() => setCurrent((prev) => (prev + 1) % product.images.length)}
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white px-2 py-1 rounded"
+              >
+                ›
+              </button>
+            </>
+          )}
+        </div>
+
         <div>
           <h1 className="text-3xl font-bold">{product.name}</h1>
           <p className="mt-2 text-2xl">{CURRENCY}{price}</p>
-          <p className="mt-1">
-            {product.rating} ★ ({product.reviewsCount} reviews)
-          </p>
+          <p className="mt-1">{product.rating} ★ ({product.reviewsCount} reviews)</p>
 
-          {/* Only show if provided */}
           {product.ingredients && (
-            <p className="mt-2 text-sm">
-              <b>Ingredients:</b> {product.ingredients}
-            </p>
+            <p className="mt-2 text-sm"><b>Ingredients:</b> {product.ingredients}</p>
           )}
           {product.shortDesc && (
             <div className="mt-2" dangerouslySetInnerHTML={{ __html: product.shortDesc }} />
@@ -102,28 +117,21 @@ export default function ProductDetail({ product }: { product: any }) {
           </div>
 
           {product.specialNote && (
-            <div
-              className="mt-4 text-sm text-blue-700"
-              dangerouslySetInnerHTML={{ __html: product.specialNote }}
-            />
+            <div className="mt-4 text-sm text-blue-700" dangerouslySetInnerHTML={{ __html: product.specialNote }} />
           )}
-
           {product.fullDesc && (
             <details className="mt-6">
               <summary className="cursor-pointer font-semibold">Description</summary>
               <div className="mt-2" dangerouslySetInnerHTML={{ __html: product.fullDesc }} />
             </details>
           )}
-
           {product.reviews.length > 0 && (
             <details className="mt-4">
               <summary className="cursor-pointer font-semibold">Reviews</summary>
               <div className="mt-2 space-y-4">
                 {product.reviews.map((r, i) => (
                   <div key={i} className="border-b pb-2">
-                    <p>
-                      <b>{r.name}</b> – {r.date}
-                    </p>
+                    <p><b>{r.name}</b> – {r.date}</p>
                     <div dangerouslySetInnerHTML={{ __html: r.body }} />
                   </div>
                 ))}
@@ -133,7 +141,7 @@ export default function ProductDetail({ product }: { product: any }) {
         </div>
       </div>
 
-      {/* Related products (only if provided) */}
+      {/* All related products */}
       {relatedProducts.length > 0 && (
         <section className="max-w-5xl mx-auto px-4 py-8">
           <h2 className="text-2xl font-bold mb-4">Related Products</h2>

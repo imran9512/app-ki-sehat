@@ -6,19 +6,19 @@ export const WHATSAPP_NUMBER = "923001234567";                // Your WhatsApp w
 
 // Google hidden-submit (replace YOUR_FORM_ID and every entry number with your own)
 export const GOOGLE_FORM_URL =
-  "https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform";
+  "https://docs.google.com/forms/d/e/1FAIpQLScP9cDlIf1Ml38opCMK9amrYXKi9oXqVQDAMtXW9Gf05-GzZg/viewform";
 export const ENTRY_IDS = {
-  order_id: "111111111",        // Google Form field ID for order number
-  name: "222222222",            // Google Form field ID for customer name
-  number: "333333333",          // Google Form field ID for phone
-  city: "444444444",            // Google Form field ID for city
-  address: "555555555",         // Google Form field ID for address
-  instructions: "666666666",    // Google Form field ID for instructions
-  products_json: "777777777",   // Google Form field ID for product summary
-  subtotal: "888888888",        // Google Form field ID for subtotal
-  discount: "999999999",        // Google Form field ID for discount
-  grand_total: "101010101",     // Google Form field ID for grand total
-  payment_method: "121212121",  // Google Form field ID for payment method
+  order_id: "1569884057",        // Google Form field ID for order number
+  name: "1942248175",            // Google Form field ID for customer name
+  number: "2033882025",          // Google Form field ID for phone
+  city: "1433680367",            // Google Form field ID for city
+  address: "81208404",         // Google Form field ID for address
+  instructions: "1588560176",    // Google Form field ID for instructions
+  products_json: "2042780537",   // Google Form field ID for product summary
+  subtotal: "706630286",        // Google Form field ID for subtotal
+  discount: "2035867855",        // Google Form field ID for discount
+  grand_total: "1062659703",     // Google Form field ID for grand total
+  payment_method: "1742878288",  // Google Form field ID for payment method
 };
 
 // Google Search Console verification (change YOUR_VERIFICATION_TAG if needed)
